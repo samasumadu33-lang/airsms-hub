@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "functions": {
+    "api/index.mjs": {
+      "includeFiles": "dist/server/**"
+    }
+  },
+  "routes": [
+    { "handle": "filesystem" },
+    { "src": "/(.*)", "dest": "/api/index?__path=/$1" }
+  ]
+}

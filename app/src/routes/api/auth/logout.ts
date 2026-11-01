@@ -1,0 +1,3 @@
+import { createFileRoute } from "@tanstack/react-router";
+import { db,json,readCookie,sameOrigin } from "@/lib/airsms.server";
+export const Route=createFileRoute("/api/auth/logout")({server:{handlers:{POST:async({request})=>{if(!sameOrigin(request))return json({ok:false,error:"Request origin could not be verified."},403);const t=readCookie(request,"airsms_session");if(t){const b=await crypto.subtle.digest("SHA-256",new TextEncoder().encode(t));const h=Array.from(new Uint8Array(b)).map(v=>v.toString(16).padStart(2,"0")).join("");await db().prepare("DELETE FROM sessions WHERE token_hash=?").bind(h).run();}return json({ok:true},200,{"Set-Cookie":"airsms_session=; Path=/; HttpOnly; Secure; SameSite=Lax; Max-Age=0"});}}}});
