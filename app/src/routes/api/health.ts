@@ -2,6 +2,7 @@ import { createFileRoute } from "@tanstack/react-router";
 import { db, json, secret } from "@/lib/airsms.server";
 
 export const Route = createFileRoute("/api/health")({
+  // @ts-expect-error TanStack Start server-route type augmentation
   server: {
     handlers: {
       GET: async () => {
